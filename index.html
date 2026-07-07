@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nasim Nikzad — Full Stack Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0d0f;
+    --surface: #161618;
+    --card: #1e1e21;
+    --border: #2a2a2e;
+    --accent: #6c63ff;
+    --accent2: #00d4aa;
+    --text: #f0f0f2;
+    --muted: #7a7a85;
+    --tag-bg: #1e1e30;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(13,13,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    color: var(--accent2);
+    letter-spacing: 0.05em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 6rem 4rem 4rem;
+  }
+  .hero-content { max-width: 700px; }
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--accent2);
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 32px; height: 1px;
+    background: var(--accent2);
+  }
+  h1 {
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+  .name-accent { color: var(--accent); }
+  .hero-sub {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 520px;
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+  }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.6rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #5a52e0; transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  section {
+    padding: 5rem 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--accent2);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 600;
+    margin-bottom: 3rem;
+    letter-spacing: -0.01em;
+  }
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .skill-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .skill-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .skill-card-title {
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--accent);
+    border: 1px solid rgba(108,99,255,0.25);
+    padding: 0.3rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .tag.green {
+    color: var(--accent2);
+    border-color: rgba(0,212,170,0.25);
+    background: rgba(0,212,170,0.06);
+  }
+
+  /* Featured project */
+  .project-featured {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2.5rem;
+    margin-bottom: 1.5rem;
+    transition: border-color 0.2s;
+  }
+  .project-featured:hover { border-color: var(--accent2); }
+  .project-featured-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .project-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent2);
+    border: 1px solid rgba(0,212,170,0.3);
+    background: rgba(0,212,170,0.06);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    letter-spacing: 0.08em;
+  }
+  .project-featured-name {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+  .project-featured-sub {
+    font-size: 0.95rem;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+    font-weight: 500;
+  }
+  .project-featured-desc {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1.75rem;
+  }
+  .feature-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .feature-item::before {
+    content: '→ ';
+    color: var(--accent2);
+  }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+  .stack-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    background: var(--surface);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+  .project-actions { display: flex; gap: 0.75rem; }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .project-card:hover { border-color: var(--accent2); transform: translateY(-2px); }
+  .project-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  .project-name { font-size: 1.2rem; font-weight: 600; color: var(--text); }
+  .project-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.6; flex: 1; }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .about-text p { color: var(--muted); line-height: 1.8; margin-bottom: 1rem; font-size: 1rem; }
+  .about-text p span { color: var(--text); }
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .stat {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+  }
+  .stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1;
+    margin-bottom: 0.35rem;
+  }
+  .stat-label { font-size: 0.82rem; color: var(--muted); }
+
+  .contact-inner {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 3rem;
+    text-align: center;
+  }
+  .contact-inner h3 { font-size: 1.8rem; font-weight: 600; margin-bottom: 0.75rem; }
+  .contact-inner p { color: var(--muted); margin-bottom: 2rem; font-size: 1rem; }
+  .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--muted);
+    font-size: 0.82rem;
+    font-family: 'JetBrains Mono', monospace;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero, section { padding: 4rem 1.5rem; }
+    .hero { padding-top: 6rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .contact-inner { padding: 2rem 1.25rem; }
+    .project-featured { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">nasim.dev</div>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projekte</a></li>
+    <li><a href="#about">Über mich</a></li>
+    <li><a href="#contact">Kontakt</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">Full Stack Developer in Ausbildung</div>
+    <h1>Hi, ich bin<br><span class="name-accent">Nasim Nikzad</span></h1>
+    <p class="hero-sub">Ich entwickle Web- und Mobile-Apps und lerne täglich dazu. Mein Fokus liegt auf sauberem Code und praktischen Lösungen.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">Meine Projekte →</a>
+      <a href="#contact" class="btn btn-outline">Kontakt aufnehmen</a>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<section id="skills">
+  <div class="section-label">// was ich kann</div>
+  <h2 class="section-title">Skills & Technologien</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-card-title">Frontend</div>
+      <div class="skill-tags">
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag">JavaScript</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title">Mobile & Backend</div>
+      <div class="skill-tags">
+        <span class="tag green">Kotlin</span>
+        <span class="tag green">Jetpack Compose</span>
+        <span class="tag green">Android Studio</span>
+        <span class="tag green">PHP</span>
+        <span class="tag green">Java</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title">Tools & APIs</div>
+      <div class="skill-tags">
+        <span class="tag">Firebase</span>
+        <span class="tag">OpenAI API</span>
+        <span class="tag">Ktor</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="projects">
+  <div class="section-label">// was ich gebaut habe</div>
+  <h2 class="section-title">Projekte</h2>
+
+  <!-- Featured Project -->
+  <div class="project-featured">
+    <div class="project-featured-header">
+      <div>
+        <div class="project-featured-name">BirthdayBOX</div>
+        <div class="project-featured-sub">Geburtstags-Management App mit integrierter KI</div>
+      </div>
+      <span class="project-badge">⭐ Featured Project</span>
+    </div>
+    <p class="project-featured-desc">
+      Eine Android-App die Geburtstage und Kontakte verwaltet — mit KI-gestützten personalisierten Glückwünschen und kreativen Geschenkideen. Nutzer bekommen automatische Erinnerungen und können mit einem Klick individuelle Nachrichten generieren lassen.
+    </p>
+    <div class="project-stack">
+      <span class="stack-tag">Kotlin</span>
+      <span class="stack-tag">Jetpack Compose</span>
+      <span class="stack-tag">Material 3</span>
+      <span class="stack-tag">Firebase Firestore</span>
+      <span class="stack-tag">OpenAI API</span>
+      <span class="stack-tag">Ktor HTTP Client</span>
+      <span class="stack-tag">DataStore</span>
+    </div>
+    <div class="project-actions">
+      <a href="#" class="btn btn-primary">Code ansehen →</a>
+    </div>
+  </div>
+
+  <!-- Other projects -->
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-number">02</div>
+      <div class="project-name">Projekt 2</div>
+      <div class="project-desc">Kommt bald — weiteres Projekt in Arbeit.</div>
+      <div class="project-stack">
+        <span class="stack-tag">???</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-number">03</div>
+      <div class="project-name">Dieses Portfolio</div>
+      <div class="project-desc">Meine eigene Portfolio-Website — selbst designed und auf GitHub Pages deployed.</div>
+      <div class="project-stack">
+        <span class="stack-tag">HTML</span>
+        <span class="stack-tag">CSS</span>
+        <span class="stack-tag">GitHub Pages</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="about">
+  <div class="section-label">// wer ich bin</div>
+  <h2 class="section-title">Über mich</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Ich bin <span>Nasim Nikzad</span>, Full Stack Developer in Ausbildung mit Schwerpunkt Applikationsentwicklung.</p>
+      <p>Ich arbeite mit Technologien wie <span>HTML, CSS, JavaScript, Java, Kotlin</span> und <span>PHP</span> — und lerne jeden Tag dazu.</p>
+      <p>Mein Ziel ist es, <span>als Junior Developer</span> in einem Team zu arbeiten, wo ich wachsen und echte Projekte umsetzen kann.</p>
+    </div>
+    <div class="about-stats">
+      <div class="stat">
+        <div class="stat-number">6+</div>
+        <div class="stat-label">Technologien</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">2+</div>
+        <div class="stat-label">Projekte</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Lernbereit</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">∞</div>
+        <div class="stat-label">Motivation</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-label" style="margin-bottom:1rem">// lass uns reden</div>
+    <h3>Interesse? Schreib mir!</h3>
+    <p>Ich freue mich über Jobangebote, Praktika oder einfach ein nettes Gespräch.</p>
+    <div class="contact-links">
+      <a href="mailto:deine@email.com" class="btn btn-primary">E-Mail schreiben</a>
+      <a href="https://github.com/nasim-nikzad" target="_blank" class="btn btn-outline">GitHub →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Nasim Nikzad — gebaut mit HTML & CSS</p>
+</footer>
+
+</body>
+</html>
